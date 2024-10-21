@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Circles</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+
+<span><div class="xkddd">
+
+    <div class="progress-container">
+        <div class="progress-circle" data-percent="95" data-color="#FF9800"> <!-- 주황색 -->
+            <img src="일러스트 v3.png" alt="illustration">
+            <svg>
+                <circle cx="50" cy="50" r="45"></circle>
+                <circle cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="percent">0%</div>
+        </div>
+        <div class="progress-circle" data-percent="90" data-color="#2196F3"> <!-- 파랑색 -->
+            <img src="포토샵.png" alt="Photoshop">
+            <svg>
+                <circle cx="50" cy="50" r="45"></circle>
+                <circle cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="percent">0%</div>
+        </div>
+        <div class="progress-circle" data-percent="85" data-color="#00BFFF"> <!-- 하늘색 -->
+            <img src="비주얼 스튜디오.png" alt="Visual Studio">
+            <svg>
+                <circle cx="50" cy="50" r="45"></circle>
+                <circle cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="percent">0%</div>
+        </div>
+    </div>
+
+
+    <span><div class="xkddkd">
+    <span><div class="box1"></div></span>
+    <span><div class="box2"></div></span>
+    <span><div class="box3"></div></span>
+</div></span>
+
+</div></span>
+    <script>
+        document.querySelectorAll('.progress-circle').forEach(circle => {
+            const percent = circle.getAttribute('data-percent');
+            const color = circle.getAttribute('data-color');
+            const offset = 283 - (283 * percent / 100);
+            
+            // 테두리 색상 설정
+            const progressCircle = circle.querySelector('circle:last-child');
+            progressCircle.style.stroke = color;
+            progressCircle.style.strokeDashoffset = 283; // 초기값을 전체 길이로 설정
+
+            // 퍼센트 애니메이션
+            let count = 0;
+            const percentDisplay = circle.querySelector('.percent');
+            
+            const interval = setInterval(() => {
+                if (count < percent) {
+                    count++;
+                    percentDisplay.textContent = count + '%';
+                } else {
+                    clearInterval(interval);
+                }
+            }, 20); // 20ms마다 1씩 증가
+
+            // 원 테두리 애니메이션
+            setTimeout(() => {
+                progressCircle.style.transition = 'stroke-dashoffset 1s ease'; // 애니메이션 효과
+                progressCircle.style.strokeDashoffset = offset; // 목표값으로 설정
+            }, 100); // 숫자 애니메이션 후에 애니메이션 시작
+        });
+    </script>
+</body>
+</html>
